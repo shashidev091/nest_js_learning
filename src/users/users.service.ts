@@ -3,14 +3,14 @@ import { User } from './users.model';
 
 @Injectable()
 export class UsersService {
-    private users: User[] = [];
+    private users: User[] = []; 
 
     getAllUsers(): Array<User> {
         return this.users
     }
 
     addUser(user: User): User | object {
-        if (user) {
+        if (user.id) {
             this.users.push(user)
             return user;
         } else return {
@@ -20,6 +20,8 @@ export class UsersService {
     }
 
     removeUser(id: number): User {
+        const idx = this.users.findIndex((item) => item.id === id)
+        console.log(idx, id)
         let user = this.users.splice(id, 1)
         return user[0]
     }
