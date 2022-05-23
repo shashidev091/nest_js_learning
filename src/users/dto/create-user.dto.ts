@@ -1,10 +1,9 @@
-export class CreateUser {
-  firstName: string;
-  lastName: string;
-  mobile: string;
-  email: string;
-  address: Address;
-  gender: Gender;
+import { IsEmail, IsEnum, IsIn, IsInstance, IsNotEmpty, IsNumber, IsObject, IsString, IS_INSTANCE } from "class-validator";
+
+export enum Gender {
+  MALE = "MALE",
+  FEMALE = "FEMALE",
+  OTHER = "OTHER",
 }
 
 export class Address {
@@ -12,9 +11,33 @@ export class Address {
   address2: string;
   pincode: number;
 }
+export class CreateUser {
+  @IsNumber()
+  @IsNotEmpty()
+  id: number;
 
-export enum Gender {
-  MALE = "MALE",
-  FEMALE = "FEMALE",
-  OTHER = "OTHER",
+  @IsString()
+  @IsNotEmpty()
+  firstName: string;
+
+  @IsString()
+  @IsNotEmpty()
+  lastName: string;
+
+  @IsString()
+  @IsNotEmpty()
+  mobile: string;
+
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+
+  @IsInstance(Address)
+  @IsNotEmpty()
+  address: Address;
+
+  @IsEnum(Gender)
+  @IsNotEmpty()
+  gender: Gender;
 }
+
