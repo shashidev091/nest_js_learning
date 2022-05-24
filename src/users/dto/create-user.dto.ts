@@ -1,4 +1,4 @@
-import { IsEmail, IsEnum, IsIn, IsInstance, IsNotEmpty, IsNumber, IsObject, IsString, IS_INSTANCE } from "class-validator";
+import { IsEmail, IsEnum, IsIn, IsInstance, IsNotEmpty, IsNumber, IsObject, IsString, IS_INSTANCE, ValidateNested } from "class-validator";
 
 export enum Gender {
   MALE = "MALE",
@@ -7,8 +7,16 @@ export enum Gender {
 }
 
 export class Address {
+  @IsNotEmpty()
+  @IsString()
   address1: string;
+
+  @IsNotEmpty()
+  @IsString()
   address2: string;
+
+  @IsNotEmpty()
+  @IsNumber()
   pincode: number;
 }
 export class CreateUser {
@@ -32,7 +40,7 @@ export class CreateUser {
   @IsNotEmpty()
   email: string;
 
-  @IsInstance(Address)
+  @ValidateNested()
   @IsNotEmpty()
   address: Address;
 
